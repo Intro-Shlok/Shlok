@@ -1,0 +1,19 @@
+# Add your skills here by category
+# Format:
+# - category: "Category Name"
+#   items: ["Skill 1", "Skill 2", "Skill 3"]
+
+- category: "Penetration Testing"
+  items: ["Web App Testing", "API Security", "Network Penetration", "Active Directory", "Privilege Escalation", "Post-Exploitation"]
+
+- category: "Bug Bounty"
+  items: ["XSS", "SQL Injection", "IDOR", "SSRF", "Authentication Flaws", "Authorization Issues", "Business Logic"]
+
+- category: "Tools"
+  items: ["Burp Suite", "Nmap", "Metasploit", "SQLMap", "FFUF", "BloodHound", "Impacket", "Nikto", "Gobuster"]
+
+- category: "Languages"
+  items: ["Python", "Bash", "PowerShell", "JavaScript", "SQL"]
+
+- category: "Platforms"
+  items: ["Kali Linux", "Parrot OS", "Windows Server", "Linux", "Docker"]

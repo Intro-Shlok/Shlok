@@ -1,0 +1,23 @@
+# Add your projects/apps here
+# To add a new app, copy this format:
+# - name: "App Name"
+#   description: "What it does"
+#   url: "https://example.com"
+#   github: "https://github.com/username/repo"
+#   tags: ["React", "Node", "Python"]
+#   featured: true
+#   image: "/assets/images/app-name.png"
+
+- name: "VulnScanner"
+  description: "Automated vulnerability scanner for web applications"
+  url: ""
+  github: "https://github.com/403-user/vuln-scanner"
+  tags: ["Python", "Security", "Automation"]
+  featured: true
+
+- name: "BugBountyTools"
+  description: "Custom tools for bug bounty hunting and reconnaissance"
+  url: ""
+  github: "https://github.com/403-user/bugbounty-tools"
+  tags: ["Python", "Burp Suite", "Recon"]
+  featured: true

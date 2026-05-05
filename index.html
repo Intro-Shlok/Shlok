@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shlok Tiwari - Cybersecurity Researcher</title>
+  <meta name="description" content="Cybersecurity Researcher & Bug Bounty Hunter">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a25;
+      --text-primary: #e4e4e7;
+      --text-secondary: #a1a1aa;
+      --accent-cyan: #22d3ee;
+      --accent-purple: #a855f7;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
+      --accent-orange: #f97316;
+      --border-color: #27272a;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-sans); background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+    a { color: var(--accent-cyan); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--accent-purple); }
+
+    .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); }
+    .header-content { max-width: 1200px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .site-logo { font-family: var(--font-mono); font-weight: 700; font-size: 1.25rem; color: var(--accent-cyan); }
+    .site-nav { display: flex; gap: 2rem; align-items: center; }
+    .site-nav a { color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
+    .site-nav a:hover { color: var(--text-primary); }
+    .nav-icon { display: flex; align-items: center; }
+
+    .site-main { padding-top: 60px; }
+    .section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-header { margin-bottom: 3rem; }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; display: inline-block; }
+    .section-line { width: 60px; height: 4px; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple)); }
+
+    .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 2rem; }
+    .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 20% 20%, rgba(34, 211, 238, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%); }
+    .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; }
+    .hero-title { font-size: 4rem; font-weight: 800; margin-bottom: 1rem; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-subtitle { font-size: 1.5rem; color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 1rem; }
+    .hero-description { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem; }
+    .hero-cta { display: flex; gap: 1rem; justify-content: center; }
+
+    /* Live2D Character Styles */
+    .pio-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      cursor: move;
+    }
+    .pio-container.hidden { display: none; }
+    .pio-container.fixed { position: fixed; }
+    .pio-container.draggable { position: fixed; }
+    .pio-container.active { opacity: 0.9; }
+
+    .pio-dialog {
+      position: absolute;
+      bottom: 160px;
+      right: 20px;
+      background: var(--bg-card);
+      color: var(--text-primary);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      max-width: 220px;
+      display: none;
+      z-index: 10000;
+      border: 1px solid var(--accent-purple);
+    }
+    .pio-dialog.active { display: block; animation: dialogPop 0.3s ease; }
+    @keyframes dialogPop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .pio-dialog::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      right: 30px;
+      border: 10px solid transparent;
+      border-top-color: var(--bg-card);
+      border-bottom: 0;
+    }
+    .pio-action { 
+      position: absolute; 
+      right: 0; 
+      bottom: 0; 
+      width: 50px; 
+      height: 50px; 
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .char-switch-btn {
+      background: var(--accent-purple);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .char-switch-btn:hover { transform: scale(1.1); }
+
+    .char-menu {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-purple);
+      border-radius: 10px;
+      padding: 10px;
+      display: none;
+      z-index: 10001;
+    }
+    .char-menu.show { display: block; animation: dialogPop 0.2s ease; }
+    .char-menu button {
+      display: block;
+      width: 100%;
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+    .char-menu button:hover {
+      background: var(--accent-purple);
+      border-color: var(--accent-purple);
+    }
+
+    @media (max-width: 768px) {
+      .pio-container { transform: scale(0.7); transform-origin: bottom right; }
+    }
+
+    .btn { padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600; transition: all 0.3s; cursor: pointer; display: inline-block; }
+    .btn-primary { background: var(--accent-cyan); color: var(--bg-primary); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+    .btn-primary:hover { background: var(--accent-purple); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--accent-cyan); border: 2px solid var(--accent-cyan); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); }
+    .btn-secondary:hover { background: var(--accent-cyan); color: var(--bg-primary); }
+
+    .section-about { background: var(--bg-secondary); position: relative; }
+    .section-about::before { content: ''; position: absolute; top: 0; left: 0; width: 150px; height: 150px; background: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, transparent 60%); clip-path: polygon(0 0, 100% 0, 0 100%); }
+    .about-text { max-width: 800px; position: relative; z-index: 1; }
+    .about-text p { margin-bottom: 1.5rem; color: var(--text-secondary); font-size: 1.05rem; }
+
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+    .card { background: var(--bg-card); border-radius: 8px; position: relative; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3); }
+    .card-corner { position: absolute; top: 0; right: 0; width: 60px; height: 60px; background: linear-gradient(135deg, transparent 50%, var(--accent-purple) 50%); }
+    .card-content { padding: 2rem; position: relative; z-index: 1; }
+    .card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .card-description { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .tag { background: rgba(168, 85, 247, 0.2); color: var(--accent-purple); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-family: var(--font-mono); }
+    .card-links { display: flex; gap: 1rem; }
+    .card-link { display: flex; align-items: center; gap: 0.5rem; color: var(--accent-cyan); font-size: 0.9rem; font-weight: 500; }
+    .card-link:hover { color: var(--accent-purple); }
+
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .cert-card { background: var(--bg-card); padding: 1.5rem; position: relative; display: flex; align-items: center; gap: 1rem; clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px)); transition: all 0.3s; }
+    .cert-card:hover { background: var(--bg-secondary); }
+    .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink)); }
+    .cert-icon { width: 50px; height: 50px; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(236, 72, 153, 0.2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-orange); flex-shrink: 0; }
+    .cert-content { flex: 1; }
+    .cert-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .cert-issuer { color: var(--text-secondary); font-size: 0.85rem; }
+    .cert-date { color: var(--accent-orange); font-size: 0.75rem; font-family: var(--font-mono); }
+
+    .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+    .skill-category { background: var(--bg-card); padding: 1.5rem; position: relative; }
+    .skill-category::before, .skill-category::after { content: ''; position: absolute; width: 20px; height: 20px; border: 2px solid var(--accent-green); }
+    .skill-category::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+    .skill-category::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+    .skill-category-title { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-green); }
+    .skill-items { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-item { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--text-primary); font-family: var(--font-mono); }
+
+    .site-footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 2rem; margin-top: 4rem; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-content p { color: var(--text-secondary); font-size: 0.9rem; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: var(--text-secondary); font-size: 0.9rem; }
+    .footer-links a:hover { color: var(--accent-cyan); }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.5rem; }
+      .hero-subtitle { font-size: 1.1rem; }
+      .site-nav { display: none; }
+      .cards-grid, .certs-grid, .skills-container { grid-template-columns: 1fr; }
+      .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
+      .hero-cta { flex-direction: column; }
+      .pio-container { transform: scale(0.7); transform-origin: bottom right; }
+    }
+
+    /* Enhanced Animations */
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section.animate { animation: sectionFadeIn 0.6s ease forwards; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .float-animation { animation: float 3s ease-in-out infinite; }
+
+    /* Mouse Trail */
+    .trail-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-purple);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      opacity: 0.6;
+      transition: transform 0.15s ease-out;
+    }
+
+    /* Scroll Progress */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.1s;
+    }
+
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <a href="/" class="site-logo" id="siteTitle"></a>
+      <nav class="site-nav">
+        <a href="#about">About</a>
+        <a href="#apps">Projects</a>
+        <a href="#certs">Certifications</a>
+        <a href="#skills">Skills</a>
+        <a href="#" id="navGithub" class="nav-icon" target="_blank">
+          <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+        <a href="#" id="navLinkedin" class="nav-icon" target="_blank">
+          <svg height="20" width="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="site-main">
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title" id="heroTitle"></h1>
+        <p class="hero-subtitle" id="heroSubtitle"></p>
+        <p class="hero-description" id="heroDescription"></p>
+        <div class="hero-cta">
+          <a href="#apps" class="btn btn-primary">View Projects</a>
+          <a href="#certs" class="btn btn-secondary">Certifications</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section-about">
+      <div class="section-header">
+        <h2 class="section-title">About Me</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="about-content">
+        <div class="about-text" id="aboutText"></div>
+      </div>
+    </section>
+
+    <section id="apps" class="section section-apps">
+      <div class="section-header">
+        <h2 class="section-title">Projects</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="cards-grid" id="appsGrid"></div>
+    </section>
+
+    <section id="certs" class="section section-certs">
+      <div class="section-header">
+        <h2 class="section-title">Certifications</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="certs-grid" id="certsGrid"></div>
+    </section>
+
+    <section id="skills" class="section section-skills">
+      <div class="section-header">
+        <h2 class="section-title">Skills</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="skills-container" id="skillsContainer"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>&copy; <span id="footerYear"></span> <span id="footerTitle"></span>. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#" id="footerGithub">GitHub</a>
+        <a href="#" id="footerLinkedin">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    document.getElementById('siteTitle').textContent = siteData.title;
+    document.getElementById('heroTitle').textContent = siteData.title;
+    document.getElementById('heroSubtitle').textContent = siteData.hero.tagline;
+    document.getElementById('heroDescription').textContent = siteData.hero.subtitle;
+    document.getElementById('aboutText').innerHTML = siteData.about.split('\n\n').map(p => `<p>${p}</p>`).join('');
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+    document.getElementById('footerTitle').textContent = siteData.title;
+
+    document.getElementById('navGithub').href = siteData.links.github;
+    document.getElementById('navLinkedin').href = siteData.links.linkedin;
+    document.getElementById('footerGithub').href = siteData.links.github;
+    document.getElementById('footerLinkedin').href = siteData.links.linkedin;
+
+    const appsGrid = document.getElementById('appsGrid');
+    siteData.apps.forEach(app => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <div class="card-corner"></div>
+        <div class="card-content">
+          <h3 class="card-title">${app.name}</h3>
+          <p class="card-description">${app.description}</p>
+          <div class="card-tags">${app.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+          <div class="card-links">
+            ${app.github ? `<a href="${app.github}" target="_blank" class="card-link"><svg height="16" width="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a>` : ''}
+            ${app.url ? `<a href="${app.url}" target="_blank" class="card-link">Live Demo</a>` : ''}
+          </div>
+        </div>`;
+      appsGrid.appendChild(card);
+    });
+
+    const certsGrid = document.getElementById('certsGrid');
+    siteData.certs.forEach(cert => {
+      const card = document.createElement('div');
+      card.className = 'cert-card';
+      card.innerHTML = `
+        <div class="cert-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="cert-content">
+          <h3 class="cert-name">${cert.name}</h3>
+          <p class="cert-issuer">${cert.issuer}</p>
+          <span class="cert-date">${cert.date}</span>
+        </div>`;
+      certsGrid.appendChild(card);
+    });
+
+    const skillsContainer = document.getElementById('skillsContainer');
+    siteData.skills.forEach(skill => {
+      const div = document.createElement('div');
+      div.className = 'skill-category';
+      div.innerHTML = `
+        <h3 class="skill-category-title">${skill.category}</h3>
+        <div class="skill-items">${skill.items.map(item => `<span class="skill-item">${item}</span>`).join('')}</div>`;
+      skillsContainer.appendChild(div);
+    });
+
+    // Interactive Enhancements
+    // Scroll Progress Bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + '%';
+    });
+
+    // Mouse Trail Effect
+    const trailColors = ['#22d3ee', '#a855f7', '#ec4899', '#10b981'];
+    let trailIndex = 0;
+    document.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.7) {
+        const dot = document.createElement('div');
+        dot.className = 'trail-dot';
+        dot.style.left = e.pageX + 'px';
+        dot.style.top = e.pageY + 'px';
+        dot.style.background = trailColors[trailIndex % trailColors.length];
+        document.body.appendChild(dot);
+        setTimeout(() => dot.remove(), 500);
+        trailIndex++;
+      }
+    });
+
+    // Section Animation on Scroll
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.section').forEach(section => observer.observe(section));
+
+    // Live2D Character Integration
+    const live2dModels = {
+      shizuku: { name: "Shizuku", model: "assets/live2d/shizuku/shizuku.model.json" },
+      pio: { name: "Pio", model: "assets/live2d/models/pio/model.json" },
+      unitychan: { name: "Unity-chan", model: "assets/live2d/models/unitychan/unitychan.model.json" },
+      haru: { name: "Haru", model: "assets/live2d/models/haru/haru01.model.json" }
+    };
+    let currentModel = "shizuku";
+
+    window.initLive2D = function() {
+      function createPioContainer() {
+        if (document.querySelector('.pio-container')) return;
+        const container = document.createElement('div');
+        container.className = 'pio-container draggable';
+        container.innerHTML = `
+          <div class="pio-dialog"></div>
+          <div class="char-menu"></div>
+          <div class="pio-action">
+            <button class="char-switch-btn" title="Switch Character">🎭</button>
+          </div>
+          <canvas id="pio" width="250" height="430"></canvas>
+        `;
+        document.body.appendChild(container);
+        
+        // Character switcher menu
+        const menu = container.querySelector('.char-menu');
+        Object.keys(live2dModels).forEach(key => {
+          const btn = document.createElement('button');
+          btn.textContent = live2dModels[key].name;
+          btn.onclick = () => switchCharacter(key);
+          menu.appendChild(btn);
+        });
+        
+        // Toggle menu
+        container.querySelector('.char-switch-btn').addEventListener('click', (e) => {
+          e.stopPropagation();
+          menu.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', () => menu.classList.remove('show'));
+      }
+
+      function loadScript(src) {
+        return new Promise((resolve, reject) => {
+          if (document.querySelector(`script[src*="${src}"]`)) { resolve(); return; }
+          const script = document.createElement('script');
+          script.src = src;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      window.switchCharacter = function(key) {
+        if (!live2dModels[key] || key === currentModel) return;
+        currentModel = key;
+        if (window.loadlive2d) {
+          loadlive2d("pio", live2dModels[key].model);
+          showDialog(`Now I'm ${live2dModels[key].name}! ~`);
+        }
+        document.querySelector('.char-menu').classList.remove('show');
+      };
+
+      function showDialog(text) {
+        const dialog = document.querySelector('.pio-dialog');
+        if (dialog) {
+          dialog.textContent = text;
+          dialog.classList.add('active');
+          setTimeout(() => dialog.classList.remove('active'), 3000);
+        }
+      }
+
+      createPioContainer();
+      
+      loadScript('assets/live2d/static/l2d.js').then(() => {
+        loadScript('assets/live2d/static/pio.js').then(() => {
+          try {
+            new Paul_Pio({
+              mode: "draggable",
+              hidden: false,
+              content: {
+                welcome: ["Welcome back!", "Hello visitor!", "Nice to see you!", "Feel free to explore!"],
+                touch: ["Hey, don't poke me!", "That tickles!", "Stop it~", "Hey!"],
+                referer: "Welcome from %t!",
+                skin: ["Want to change my outfit?", "New outfit ready~"]
+              },
+              model: [live2dModels[currentModel].model]
+            });
+          } catch(e) { console.log('Live2D init delayed'); }
+        });
+      });
+    };
+
+    // Initialize Live2D on load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', window.initLive2D);
+    } else {
+      window.initLive2D();
+    }
+  </script>
+</body>
+</html>

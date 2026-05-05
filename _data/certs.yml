@@ -1,0 +1,25 @@
+# Add your certifications here
+# Format:
+# - name: "Certification Name"
+#   issuer: "Issuing Organization"
+#   date: "YYYY-MM"
+#   url: "https://verification-link.com"
+#   badge: "/assets/images/cert-badge.png"
+
+- name: "OSCP"
+  issuer: "Offensive Security"
+  date: "2024-01"
+  url: ""
+  badge: ""
+
+- name: "CEH"
+  issuer: "EC-Council"
+  date: "2023-06"
+  url: ""
+  badge: ""
+
+- name: "CompTIA Security+"
+  issuer: "CompTIA"
+  date: "2023-03"
+  url: ""
+  badge: ""

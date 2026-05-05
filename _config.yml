@@ -1,0 +1,27 @@
+title: "Shlok Tiwari"
+description: "Cybersecurity Researcher & Bug Bounty Hunter"
+url: "https://shlokt.com"
+github: "https://github.com/403-user"
+linkedin: "https://www.linkedin.com/in/shlok-tiwari-rootshell"
+email: ""
+
+twitter: ""
+hero:
+  tagline: "Breaking systems to make them safer"
+  subtitle: "Offensive Security | Penetration Testing | Bug Bounty"
+
+collections:
+  apps:
+    output: true
+  certs:
+    output: true
+
+markdown: kramdown
+permalink: /:title/
+
+sass:
+  style: compressed
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap

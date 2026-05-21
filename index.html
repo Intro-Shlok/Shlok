@@ -180,6 +180,7 @@
     .cert-card:hover { background: var(--bg-secondary); }
     .cert-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink)); }
     .cert-icon { width: 50px; height: 50px; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(236, 72, 153, 0.2)); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--accent-orange); flex-shrink: 0; }
+    .cert-badge { width: 50px; height: 50px; object-fit: contain; flex-shrink: 0; }
     .cert-content { flex: 1; }
     .cert-name { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
     .cert-issuer { color: var(--text-secondary); font-size: 0.85rem; }
@@ -363,16 +364,18 @@
 
     const certsGrid = document.getElementById('certsGrid');
     siteData.certs.forEach(cert => {
-      const card = document.createElement('div');
+      const card = document.createElement(cert.url ? 'a' : 'div');
       card.className = 'cert-card';
+      if (cert.url) { card.href = cert.url; card.target = '_blank'; }
+      const badgeHtml = cert.badge
+        ? `<img src="${cert.badge}" alt="${cert.name}" class="cert-badge">`
+        : `<div class="cert-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>`;
       card.innerHTML = `
-        <div class="cert-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-        </div>
+        ${badgeHtml}
         <div class="cert-content">
           <h3 class="cert-name">${cert.name}</h3>
           <p class="cert-issuer">${cert.issuer}</p>
-          <span class="cert-date">${cert.date}</span>
+          ${cert.date ? `<span class="cert-date">${cert.date}</span>` : ''}
         </div>`;
       certsGrid.appendChild(card);
     });

@@ -29,9 +29,14 @@ Recognized for responsible disclosure and continuously engaged in bug bounty pro
   ],
 
   certs: [
-    { name: "OSCP", issuer: "Offensive Security", date: "2024-01", url: "" },
-    { name: "CEH", issuer: "EC-Council", date: "2023-06", url: "" },
-    { name: "CompTIA Security+", issuer: "CompTIA", date: "2023-03", url: "" }
+    { name: "OSCP+", issuer: "Offensive Security", date: "2025", url: "https://credentials.offsec.com/561893d2-aba0-49a4-8f4c-17b087ece722", badge: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/172918372" },
+    { name: "OSCP", issuer: "Offensive Security", date: "2024", url: "https://credentials.offsec.com/dca46679-2629-4e75-9d1e-e180802d0a7c", badge: "https://api.accredible.com/v1/frontend/credential_website_embed_image/badge/172915099" },
+    { name: "ISO/IEC 27001 Information Security Associate\u2122", issuer: "SkillFront", date: "", url: "https://www.skillfront.com/Badges/66762573664675", badge: "" },
+    { name: "Introduction to the Threat Landscape 3.0", issuer: "Fortinet", date: "", url: "https://www.credly.com/badges/3df266ff-fda2-478f-85cd-b4f34b9e5e84/public_url", badge: "" },
+    { name: "Fortinet Certified Fundamentals Cybersecurity", issuer: "Fortinet", date: "", url: "https://www.credly.com/badges/8e6fdcc5-751a-4060-a9dc-9668e03c5a06/public_url", badge: "" },
+    { name: "API Penetration Testing (12 hours)", issuer: "APIsec University", date: "", url: "https://www.credly.com/badges/35a23e04-3b42-4f95-ab47-de98dec896e9/public_url", badge: "" },
+    { name: "CEH", issuer: "EC-Council", date: "2023-06", url: "", badge: "" },
+    { name: "CompTIA Security+", issuer: "CompTIA", date: "2023-03", url: "", badge: "" }
   ],
 
   skills: [
@@ -44,6 +49,6 @@ Recognized for responsible disclosure and continuously engaged in bug bounty pro
 
   links: {
     github: "https://github.com/403-user",
-    linkedin: "https://www.linkedin.com/in/shlok-tiwari-rootshell"
+    linkedin: "https://www.linkedin.com/in/intro-shlok-tiwari"
   }
 };

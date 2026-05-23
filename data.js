@@ -13,18 +13,18 @@ Recognized for responsible disclosure and continuously engaged in bug bounty pro
 
   apps: [
     {
-      name: "VulnScanner",
-      description: "Automated vulnerability scanner for web applications",
+      name: "AutoNet",
+      description: "Modular network vulnerability scanner. Privilege-aware async scanning engine with service enumeration via nmap, CVE matching via Vulners API, and multi-stage Docker deployment.",
       url: "",
-      github: "https://github.com/403-user/vuln-scanner",
-      tags: ["Python", "Security", "Automation"]
+      github: "https://github.com/403-user/autonet",
+      tags: ["Python", "asyncio", "Nmap", "Docker", "Security"]
     },
     {
-      name: "BugBountyTools",
-      description: "Custom tools for bug bounty hunting and reconnaissance",
+      name: "SUTRA-X",
+      description: "AI-driven autonomous cybersecurity console powered by Google Gemini. Orchestrates Nmap and Metasploit through an interactive REPL with zero-config OAuth and real-time mission monitoring.",
       url: "",
-      github: "https://github.com/403-user/bugbounty-tools",
-      tags: ["Python", "Burp Suite", "Recon"]
+      github: "https://github.com/403-user/sutra-x",
+      tags: ["TypeScript", "Node.js", "Gemini AI", "Nmap", "Metasploit"]
     }
   ],
 

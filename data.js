@@ -25,6 +25,13 @@ Recognized for responsible disclosure and continuously engaged in bug bounty pro
       url: "",
       github: "https://github.com/403-user/sutra-x",
       tags: ["TypeScript", "Node.js", "Gemini AI", "Nmap", "Metasploit"]
+    },
+    {
+      name: "AutoTest",
+      description: "Dual-purpose security tool documentation repository with 215+ tools, capabilities index, MITRE ATT&CK mapping, artifact type indexing, and LLM-ready corpus for automated MCP execution.",
+      url: "https://intro-shlok.github.io/AutoTest",
+      github: "https://github.com/Intro-Shlok/AutoTest",
+      tags: ["Astro", "TypeScript", "MCP", "Documentation", "Security"]
     }
   ],
 

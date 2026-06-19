@@ -27,11 +27,18 @@ Recognized for responsible disclosure and continuously engaged in bug bounty pro
       tags: ["TypeScript", "Node.js", "Gemini AI", "Nmap", "Metasploit"]
     },
     {
-      name: "AutoTest",
-      description: "Dual-purpose security tool documentation repository with 215+ tools, capabilities index, MITRE ATT&CK mapping, artifact type indexing, and LLM-ready corpus for automated MCP execution.",
-      url: "https://intro-shlok.github.io/AutoTest",
-      github: "https://github.com/Intro-Shlok/AutoTest",
-      tags: ["Astro", "TypeScript", "MCP", "Documentation", "Security"]
+      name: "AutoXMate",
+      description: "Security tool automation platform: 2,262+ documented tools with structured query parser, MCP server for AI integration, cross-platform CLI, and LLM-ready corpus. Aggregates GTFOBins, LOLBAS, LOLDrivers, HijackLibs, and 20+ security collections.",
+      url: "https://autoxmate.github.io",
+      github: "https://github.com/AutoXMate/AutoXmate",
+      tags: ["Go", "Astro", "MCP", "CLI", "Security"]
+    },
+    {
+      name: "AutoXmate CLI",
+      description: "Cross-platform CLI tool that syncs tool definitions, detects installed tools, installs missing ones, and executes parameterized commands. Features TUI, structured query parser, multi-method installer (apt, brew, pip, go, git), and MCP server for AI models.",
+      url: "https://autoxmate.github.io/download",
+      github: "https://github.com/AutoXMate/AutoXmate",
+      tags: ["Go", "Cobra", "Bubble Tea", "SQLite", "CLI"]
     }
   ],
 
